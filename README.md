@@ -19,14 +19,22 @@ CleverDoc is an AI-powered chatbot designed to assist users with managing and ex
 Currently, CleverDoc is deployed as a web-based application. To use CleverDoc locally, follow these steps:
 
 1. Clone the repository:
-`git clone https://github.com/Foxtrot-14/CleverDoc.git`
-2. Navigate to UI:
-`cd CleverDoc/UI`
-3. Install Dependencies:
-`npm install`
-4. Run the Project:
-`npm run dev`
-5. Access CleverDoc through your web browser at `http://localhost:5000`.
+```bash
+git clone https://github.com/Foxtrot-14/CleverDoc.git
+```
+3. Navigate to UI:
+```
+cd CleverDoc/UI
+```
+5. Install Dependencies:
+```
+npm install
+```
+7. Run the Project:
+```
+npm run dev
+```
+9. Access CleverDoc through your web browser at `http://localhost:5000`.
 
 ## Usage
 
