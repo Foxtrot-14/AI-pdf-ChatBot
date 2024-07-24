@@ -1,0 +1,104 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+.upload {
+  color: #ff9800;
+}
+.chat {
+  width: 100vw;
+  margin-bottom: 20px;
+  padding-left: 50px;
+  border-radius: 5px;
+  position: relative;
+  height: 400px;
+  overflow: hidden;
+}
+.pdf-container {
+  width: 100%;
+  max-width: 800px;
+  margin-bottom: 20px;
+  padding: 10px;
+  border-radius: 5px;
+}
+.chat-inner {
+  position: absolute; /* Position the content absolutely */
+  width: 100%;
+  padding-right: 20px; /* Adjust padding to accommodate the scrollbar width */
+  box-sizing: content-box; /* Ensure padding doesn't increase width */
+}
+
+.chat p {
+  background-color: #6e6a6a;
+  padding: 8px 12px;
+  width: auto;
+  margin: 5px 0;
+  border-radius: 10px;
+}
+
+.chat p:nth-child(even) {
+  background-color: #6e6a6a;
+  width: auto;
+}
+.head {
+  color: #ff9800;
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%);
+  font-family: "Ga Maamli", sans-serif;
+  font-weight: 400;
+  font-size: 60px;
+  font-style: italic;
+}
+.send {
+  position: fixed;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 18px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  background-color: #ff9800;
+  padding: 5px;
+  width: 80px;
+  height: 40px;
+}
+.inp {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 25px;
+}
+.but {
+  position: absolute;
+  bottom: 100px;
+  right: 20%;
+  border-radius: 5px;
+  font-size: 12px;
+  font-family: "Courier New", Courier, monospace;
+  font-weight: bold;
+  background-color: #ff9800;
+  padding: 5px;
+  width: 80px;
+  height: 40px;
+  transform: translateX(-50%);
+}
+.but:hover {
+  cursor: pointer;
+}
+.inp input {
+  width: 550px;
+  min-height: 50px;
+  height: auto;
+  max-height: 100px;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 10px;
+  color: beige;
+  background-color: #222020;
+  box-sizing: border-box;
+}
