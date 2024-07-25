@@ -1,11 +1,14 @@
 import React, { useState, useRef } from "react";
 import "./Home.css";
-
+import axiosInstance from "../axiosInstance";
 interface Message {
   type: "text" | "pdf";
   content: string;
 }
-
+interface UploadResponse {
+  success: boolean;
+  message: string;
+}
 const Home: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -18,13 +21,39 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const uploadPDF = async (file: File): Promise<UploadResponse> => {
+    try {
+      const formData = new FormData();
+      formData.append("pdf_file", file);
+      const response = await axiosInstance.post<UploadResponse>(
+        "/pdf/",
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      console.error("Error uploading PDF:", error);
+      throw new Error(`Error uploading PDF: ${error}`);
+    }
+  };
+  const handleFileSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
     const file = event.target.files?.[0];
     if (file) {
+      try {
+        const result = await uploadPDF(file);
+        console.log("Upload result:", result);
+      } catch (error) {
+        console.error("Upload failed:", error);
+      }
       processPDF(file);
     }
   };
-
   const processPDF = (file: File) => {
     const fileReader = new FileReader();
     fileReader.onload = (e) => {
