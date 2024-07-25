@@ -34,6 +34,14 @@ const Home: React.FC = () => {
           content: e.target.result,
         };
         setMessages((prevMessages) => [...prevMessages, pdfMessage]);
+        if (chatRef.current) {
+          chatRef.current.scrollTop = chatRef.current.scrollHeight;
+          chatRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+            inline: "nearest",
+          });
+        }
       }
     };
     fileReader.readAsDataURL(file);
@@ -48,7 +56,6 @@ const Home: React.FC = () => {
       };
       setMessages((prevMessages) => [...prevMessages, newMessage]);
       inputRef.current.value = "";
-      // Scroll to bottom of chat after adding a new message
       if (chatRef.current) {
         chatRef.current.scrollTop = chatRef.current.scrollHeight;
       }
@@ -60,7 +67,7 @@ const Home: React.FC = () => {
       <header>
         <h1 className="head">CleverDoc</h1>
       </header>
-      <main>
+      <main className="parent">
         <input
           type="file"
           ref={fileInputRef}
@@ -77,8 +84,8 @@ const Home: React.FC = () => {
                 <embed
                   src={message.content}
                   type="application/pdf"
-                  width="300px"
-                  height="500px"
+                  width="200px"
+                  height="300px"
                 />
               )}
             </div>

@@ -1,0 +1,26 @@
+# Ignore node_modules directory
+node_modules/
+# Ignore environment variables
+.env
+
+# Ignore npm debug log
+npm-debug.log*
+
+# Ignore yarn integrity file
+.yarn-integrity
+
+# Ignore macOS folder attributes
+.DS_Store
+
+# Ignore editor specific files
+.vscode/
+.idea/
+
+# Ignore local configuration
+*.local
+
+# Ignore TypeScript build output
+*.js.map
+*.d.ts
+*.d.ts.map
+

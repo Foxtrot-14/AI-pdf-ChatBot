@@ -4,44 +4,66 @@
   align-items: center;
   justify-content: center;
   height: 100vh;
+  overflow: hidden;
+  background-color: #333232;
+}
+.parent {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #222020;
+  overflow: hidden;
 }
 .upload {
   color: #ff9800;
 }
 .chat {
-  width: 100vw;
-  margin-bottom: 20px;
-  padding-left: 50px;
+  width: 90%;
+  background-color: #222020;
+  border-radius: 15px;
+  height: 450px;
+  display: flex;
+  padding: 15px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow-y: auto;
+}
+.message {
+  margin-bottom: 10px;
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #888;
   border-radius: 5px;
-  position: relative;
-  height: 400px;
-  overflow: hidden;
 }
-.pdf-container {
-  width: 100%;
-  max-width: 800px;
-  margin-bottom: 20px;
-  padding: 10px;
-  border-radius: 5px;
+.text {
+  width: auto;
+  min-width: 50px;
+  align-self: flex-end;
+  margin-right: 15px;
 }
-.chat-inner {
-  position: absolute; /* Position the content absolutely */
-  width: 100%;
-  padding-right: 20px; /* Adjust padding to accommodate the scrollbar width */
-  box-sizing: content-box; /* Ensure padding doesn't increase width */
-}
-
 .chat p {
   background-color: #6e6a6a;
   padding: 8px 12px;
-  width: auto;
-  margin: 5px 0;
+  font-size: auto;
+  max-width: 450px;
+  line-break: loose;
+  text-align: left;
+  font-family: "Courier New", Courier, monospace;
   border-radius: 10px;
 }
-
+.pdf {
+  align-self: flex-end;
+  margin-right: 15px;
+}
 .chat p:nth-child(even) {
   background-color: #6e6a6a;
-  width: auto;
 }
 .head {
   color: #ff9800;
@@ -74,9 +96,9 @@
   margin: 25px;
 }
 .but {
-  position: absolute;
-  bottom: 100px;
-  right: 20%;
+  position: fixed;
+  bottom: 30px;
+  right: 11%;
   border-radius: 5px;
   font-size: 12px;
   font-family: "Courier New", Courier, monospace;
@@ -91,14 +113,17 @@
   cursor: pointer;
 }
 .inp input {
-  width: 550px;
+  width: 600px;
   min-height: 50px;
   height: auto;
   max-height: 100px;
   border-radius: 5px;
   font-size: 18px;
   padding: 10px;
-  color: beige;
-  background-color: #222020;
+  color: black;
+  background-color: #6d6d6d;
   box-sizing: border-box;
+}
+input::placeholder {
+  color: #dbd3d3; 
 }
