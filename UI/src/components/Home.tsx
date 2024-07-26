@@ -24,7 +24,10 @@ const Home: React.FC = () => {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
-
+  const idRef = useRef<string>(id);
+  useEffect(() => {
+    idRef.current = id;
+  }, [id]);
   const handleUpload = () => {
     if (fileInputRef.current) {
       fileInputRef.current.click();
@@ -155,7 +158,11 @@ const Home: React.FC = () => {
             };
             setMessages((prevMessages) => [...prevMessages, msg]);
           } catch (error) {
-            console.error("Failed to send message:", error);
+            const msg: Message = {
+              type: "response",
+              content: "Failed to send message",
+            };
+            setMessages((prevMessages) => [...prevMessages, msg]);
           }
         }
       }
@@ -163,6 +170,16 @@ const Home: React.FC = () => {
 
     handleMessage();
   }, [messages]);
+  useEffect(() => {
+    const handleBeforeUnload = async () => {
+      // Perform the request to your server
+      await axiosInstance.delete(`/pdf/${idRef.current}/delete/`);
+    };
+    window.addEventListener("beforeunload", handleBeforeUnload);
+    return () => {
+      window.removeEventListener("beforeunload", handleBeforeUnload);
+    };
+  }, []);
   return (
     <div className="container">
       <header>
