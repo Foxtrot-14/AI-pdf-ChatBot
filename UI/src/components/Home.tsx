@@ -70,7 +70,6 @@ const Home: React.FC = () => {
           },
         }
       );
-      console.log(response.data);
       return response.data;
     } catch (error) {
       console.error("Error uploading PDF:", error);
