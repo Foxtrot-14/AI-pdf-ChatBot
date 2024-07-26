@@ -60,12 +60,12 @@
   align-self: flex-end;
   margin-right: 15px;
 }
-.chat .text:nth-child(even) {
+.response {
   background-color: #f1f1f1;
   align-self: flex-start;
   border-radius: 10px;
 }
-.chat .text:nth-child(odd) {
+.chat .text {
   background-color: #6e6a6a;
   align-self: flex-end;
   border-radius: 10px;

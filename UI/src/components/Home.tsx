@@ -1,8 +1,10 @@
 import React, { useState, useRef } from "react";
 import "./Home.css";
 import axiosInstance from "../axiosInstance";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 interface Message {
-  type: "text" | "pdf";
+  type: "text" | "pdf" | "response";
   content: string;
 }
 interface UploadResponse {
@@ -109,13 +111,21 @@ const Home: React.FC = () => {
             <div key={index} className={`message ${message.type}`}>
               {message.type === "text" ? (
                 <p>{message.content}</p>
-              ) : (
+              ) : message.type === "pdf" ? (
                 <embed
                   src={message.content}
                   type="application/pdf"
                   width="200px"
                   height="300px"
                 />
+              ) : message.type === "response" ? (
+                <p className="response">
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {message.content}
+                  </ReactMarkdown>
+                </p>
+              ) : (
+                <p>Unsupported message type</p>
               )}
             </div>
           ))}
