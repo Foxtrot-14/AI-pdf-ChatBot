@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import "./Home.css";
 import axiosInstance from "../axiosInstance";
 import ReactMarkdown from "react-markdown";
@@ -8,11 +8,19 @@ interface Message {
   content: string;
 }
 interface UploadResponse {
-  success: boolean;
-  message: string;
+  id: string;
+  pdf_file: string;
+}
+interface MessageResponse {
+  response: string;
+}
+interface HistoryEntry {
+  role: string;
+  parts: string[];
 }
 const Home: React.FC = () => {
   const [messages, setMessages] = useState<Message[]>([]);
+  const [id, setId] = useState<string>("");
   const fileInputRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const chatRef = useRef<HTMLDivElement>(null);
@@ -22,7 +30,6 @@ const Home: React.FC = () => {
       fileInputRef.current.click();
     }
   };
-
   const uploadPDF = async (file: File): Promise<UploadResponse> => {
     try {
       const formData = new FormData();
@@ -42,6 +49,31 @@ const Home: React.FC = () => {
       throw new Error(`Error uploading PDF: ${error}`);
     }
   };
+  const sendMessage = async (
+    msg: string,
+    history: HistoryEntry[]
+  ): Promise<MessageResponse> => {
+    try {
+      const payload = {
+        message: msg,
+        history: history,
+      };
+      const response = await axiosInstance.post<MessageResponse>(
+        `/pdf/${id}/`,
+        payload,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("Error uploading PDF:", error);
+      throw new Error(`Error uploading PDF: ${error}`);
+    }
+  };
   const handleFileSelect = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
@@ -49,7 +81,7 @@ const Home: React.FC = () => {
     if (file) {
       try {
         const result = await uploadPDF(file);
-        console.log("Upload result:", result);
+        setId(result.id);
       } catch (error) {
         console.error("Upload failed:", error);
       }
@@ -92,7 +124,45 @@ const Home: React.FC = () => {
       }
     }
   };
+  const prephistory = (msgs: Message[]): HistoryEntry[] => {
+    const history: HistoryEntry[] = [];
+    msgs.map((msg) => {
+      if (msg.type === "text") {
+        history.push({ role: "user", parts: [msg.content] });
+      } else if (msg.type === "response") {
+        history.push({ role: "model", parts: [msg.content] });
+      }
+    });
+    return history;
+  };
+  //use effect- everytime a message is added to the array if the type is text send the request, if the type  is response serve it
+  useEffect(() => {
+    const handleMessage = async () => {
+      if (messages.length > 0) {
+        const lastMessage = messages[messages.length - 1];
+        if (lastMessage.type === "text") {
+          // Prepare history
+          const history: HistoryEntry[] = prephistory(messages);
+          history.pop(); // Remove the last message as it was just added
+          try {
+            const res: MessageResponse = await sendMessage(
+              lastMessage.content,
+              history
+            );
+            const msg: Message = {
+              type: "response",
+              content: String(res.response),
+            };
+            setMessages((prevMessages) => [...prevMessages, msg]);
+          } catch (error) {
+            console.error("Failed to send message:", error);
+          }
+        }
+      }
+    };
 
+    handleMessage();
+  }, [messages]);
   return (
     <div className="container">
       <header>
@@ -119,11 +189,11 @@ const Home: React.FC = () => {
                   height="300px"
                 />
               ) : message.type === "response" ? (
-                <p className="response">
+                <div className="response">
                   <ReactMarkdown remarkPlugins={[remarkGfm]}>
                     {message.content}
                   </ReactMarkdown>
-                </p>
+                </div>
               ) : (
                 <p>Unsupported message type</p>
               )}

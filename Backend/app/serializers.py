@@ -4,4 +4,4 @@ from .models import UploadedPDF
 class UploadedPDFSerializer(serializers.ModelSerializer):
     class Meta:
         model = UploadedPDF
-        fields = ('pdf_file',)
+        fields = ['id','pdf_file']

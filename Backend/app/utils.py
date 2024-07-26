@@ -34,7 +34,9 @@ def prompt(file,message="Analyse the given pdf",history=[]):
     )
     # TODO Make these files available on the local file system
     # You may need to update the file paths
-    file = '/home/foxtrot/Development/Solve/ridiv'+file
+    current_directory = os.path.dirname(os.path.abspath(__file__))
+    backend_directory = os.path.dirname(current_directory)
+    file = backend_directory+file
     files = [
     upload_to_gemini(file, mime_type="application/pdf"),
     ]

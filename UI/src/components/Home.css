@@ -21,7 +21,7 @@
   color: #ff9800;
 }
 .chat {
-  width: 50%;
+  width: 90%;
   background-color: #222020;
   border-radius: 15px;
   height: 450px;
@@ -61,7 +61,14 @@
   margin-right: 15px;
 }
 .response {
-  background-color: #f1f1f1;
+  background-color: #ff9800;
+  width: auto;
+  max-width: 700px;
+  height: auto;
+  line-break: loose;
+  text-align: left;
+  font-family: "Courier New", Courier, monospace;
+  padding: 20px;
   align-self: flex-start;
   border-radius: 10px;
 }
