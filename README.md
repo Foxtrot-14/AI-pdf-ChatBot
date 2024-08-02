@@ -5,7 +5,9 @@ CleverDoc is an AI-powered chatbot designed to assist users with managing and ex
 ## Demo Video:
 
 
-https://github.com/user-attachments/assets/c22aceba-47ee-4dc7-9765-f39394edb620
+
+https://github.com/user-attachments/assets/5e00a40a-5a8b-4b76-822b-ba81b10bdf4d
+
 
 
 ## Features
