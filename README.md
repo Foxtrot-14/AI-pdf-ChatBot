@@ -1,7 +1,9 @@
 # CleverDoc - PDF AI Chatbot
 
 CleverDoc is an AI-powered chatbot designed to assist users with managing and extracting information from PDF documents. Whether you need to quickly find information, summarize content, or perform complex queries within PDF files, CleverDoc is here to help. This README provides an overview of CleverDoc's features, installation instructions, and usage guidelines.
-
+## Hosted Site: [Link](http://13.232.21.29:8080/)
+## Demo Video:
+https://github.com/user-attachments/assets/81cd18ae-359e-437c-a757-9e35af419cc6
 ## Features
 
 - **PDF Parsing**: CleverDoc can parse PDF documents to extract text and metadata.
